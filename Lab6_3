@@ -1,0 +1,65 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+// Базовий клас "Транспорт"
+class Transport {
+protected:
+    string type;
+public:
+    Transport() : type("Transport") {}
+    virtual void display() const {
+        cout << "Type: " << type << endl;
+    }
+};
+
+// Похідний клас "Корабель"
+class Ship : public Transport {
+protected:
+    string shipType;
+public:
+    Ship() : shipType("Ship") {}
+    void display() const override {
+        cout << "Type: " << type << ", Ship Type: " << shipType << endl;
+    }
+};
+
+// Похідний клас "Пасажирський транспорт"
+class PassengerTransport : public Transport {
+protected:
+    int passengerCapacity;
+public:
+    PassengerTransport() : passengerCapacity(0) {}
+    void display() const override {
+        cout << "Type: " << type << ", Passenger Capacity: " << passengerCapacity << " passengers" << endl;
+    }
+};
+
+// Похідний клас "Пасажирський корабель"
+class PassengerShip : public Ship, public PassengerTransport {
+public:
+    PassengerShip(int capacity) {
+        type = "Passenger Ship";
+        passengerCapacity = capacity;
+    }
+    void display() const override {
+        cout << "Type: " << type << ", Ship Type: " << shipType << ", Passenger Capacity: " << passengerCapacity << " passengers" << endl;
+    }
+};
+
+int main() {
+    Transport transport;
+    transport.display();
+
+    Ship ship;
+    ship.display();
+
+    PassengerTransport passengerTransport;
+    passengerTransport.display();
+
+    PassengerShip passengerShip(200);
+    passengerShip.display();
+
+    return 0;
+}
